@@ -185,7 +185,7 @@ app.delete('/api/parties/:id', (req, res) => {
 
     db.query(sql, params, (err, result) => {
         if (err) {
-            res.status(400).json({ error: err.message });
+            res.status(400).json({ error: res.message });
             // check to see if anything was deleted
         } else if (!result.affectedRows) {
             res.json({
@@ -197,7 +197,7 @@ app.delete('/api/parties/:id', (req, res) => {
                 changes: result.affectedRows,
                 id: req.params.id
             });
-        };
+        }
     });
 });
 
