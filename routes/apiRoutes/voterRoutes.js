@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../../db/connections');
 const inputCheck = require('../../utils/inputCheck');
 
+// get all voters alphabetized by last name
 router.get('/voters', (req, res) => {
     const sql = `SELECT * FROM voters ORDER BY last_name`;
 
@@ -36,6 +37,7 @@ router.get('/voters/:id', (req, res) => {
     });
 });
 
+// create a voter
 router.post('/voter', ({body}, res) => {
     // Data validation
     const errors = inputCheck(body, 'first_name', 'last_name', 'email');
@@ -59,6 +61,7 @@ router.post('/voter', ({body}, res) => {
     });
 });
 
+// update a voter's email
 router.put('/voter/:id', (req, res) => {
     // Data validation
     const errors = inputCheck(req.body, 'email') 
@@ -88,9 +91,9 @@ router.put('/voter/:id', (req, res) => {
     });
 });
 
+// Delete a voter
 router.delete('/voter/:id', (req, res) => {
     const sql = `DELETE FROM voters WHERE id =?`;
-
 
     db.query(sql, req.params.id, (err, result) => {
         if (err) {
